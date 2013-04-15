@@ -1,0 +1,2 @@
+{"hostId":"acq_XXX",
+"shotNo":5}

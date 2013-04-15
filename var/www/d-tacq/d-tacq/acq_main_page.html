@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" 
+         content="text/html; charset=utf-8" />
+   <link rel="SHORTCUT ICON" href="/cgi-bin/res/d-tacq-icon.gif">
+   <title>acqInformation</title>
+   
+   <!-- Define stylesheets -->
+   <link rel="stylesheet" type="text/css" href="css/ui-flick/jquery-ui-1.8.17.custom.css" />
+   <link rel="stylesheet" type="text/css" href="css/dtacq_acq.css" />
+
+   <!-- BEGIN: load jquery, including jQuery UI tabs -->
+   <script language="javascript" type="text/javascript" src="scripts/jquery.min.js"></script>
+   <script language="javascript" type="text/javascript" src="scripts/jquery-ui-1.8.17.custom.min.js"></script>
+   <!-- END: load jquery -->
+
+   <!-- REM scripts -->
+   <script type="text/javascript" src="scripts/acq_header_tabs.js"></script>
+
+</head>
+
+<body>
+<div id="contents">
+   <div id="acqHeaderTabs">
+      <ul id="tabNav">
+          <li><a title="Home" href="acq_home_page.html">Home</a></li>
+          <li><a title="id" href="acq_info_page.html">System</a></li>
+          <li><a title="temp" href="acq_info_page.html">Temperature</a></li>
+          <li><a title="volts" href="acq_info_page.html">Power</a></li>
+          <li><a title="interrupts" href="acq_info_page.html">Interrupts</a></li>
+      </ul>
+   </div>
+</div>
+<div id="footer">
+   <div class="acqInfo">
+      <table id="acqFooter">
+         <tr>
+            <td class="acqFootL" id="acqHost"></td>
+            <td class="acqFootL" id="acqDate"></td>
+            <td class="acqFootS" id="acqStatus"></td>
+            <td class="acqFootC">
+               <input name="refresh" type="checkbox" value="refresh" checked>Refresh?
+            </td>
+            <td class="acqFootR"><div id="ajaxInProgress"></div></td>
+         </tr>
+      </table>
+   </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" 
+         content="text/html; charset=utf-8" />
+   <link rel="SHORTCUT ICON" href="/cgi-bin/res/d-tacq-icon.gif">
+   <title>Dtacq jqPlot</title>
+   <!--[if lt IE 9]<script language="javascript" type="text/javascript" src="scripts/excanvas.min.js"></script><![endif]-->
+   
+   <!-- Define stylesheets -->
+   <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
+   <link rel="stylesheet" type="text/css" href="css/dtacq_jqplot.css" />
+
+   <!-- BEGIN: load jquery -->
+   <script language="javascript" type="text/javascript" src="scripts/jquery.min.js"></script>
+   <!-- END: load jquery -->
+
+   <!-- BEGIN: load jqplot -->
+   <script language="javascript" type="text/javascript" src="scripts/jquery.jqplot.min.js"></script>
+   <script language="javascript" type="text/javascript" src="scripts/plugins/jqplot.cursor.min.js"></script>
+   <script language="javascript" type="text/javascript" src="scripts/plugins/jqplot.canvasTextRenderer.min.js"></script>
+   <script language="javascript" type="text/javascript" src="scripts/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+   <!-- End: load jqplot -->
+
+   <!-- REM scripts -->
+   <script type="text/javascript" src="scripts/dtacq_jqplot.js"></script>
+
+</head>
+
+<body>
+   <div id="dtacqPlot"></div>
+   <div id="plotInfo">
+      <table class="channelInfo">
+         <tr>
+            <td class="tdHead"># Channels</td>
+            <td class="tdHead">Channel</td>
+            <td class="tdHead">Time [s]</td>
+            <td class="tdHead">Volts</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td id="chNo"></td>
+            <td id="chInfo"></td>
+            <td id="xInfo"></td>
+            <td id="yInfo"></td>
+            <td>
+              <button value="reset" type="button" onclick="$.jqplot.Cursor.resetZoom(plot1)">Reset Zoom</button>
+            </td>
+          </tr>
+      </table>
+   </div>
+</body>
+</html>

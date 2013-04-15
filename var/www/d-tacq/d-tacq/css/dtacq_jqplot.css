@@ -1,0 +1,45 @@
+/* Dtacq jqPlot Styles */
+
+/* Defines the plot size */
+#dtacqPlot {
+    height: 500px;
+    width: 800px;
+    padding: 0;
+    margin: 0;
+}
+
+#plotInfo {
+    font-family: Monospaced, Sans-Serif;
+    font-size: small;
+}
+
+td {
+    text-align: center;
+}
+
+td.tdHead {
+    font-weight: bold;
+}
+
+table.channelInfo {
+    width: 80%;
+    margin: 10px;
+    border: 1px solid blue;
+}
+
+#chInfo {
+    border: 1px solid blue;
+    text-align: center;
+}
+
+#xInfo, #yInfo {
+    width: 20%;
+    border: 1px solid blue;
+    text-align: right;
+    padding-right: 10px;
+}
+
+button {
+    font-weight: bold;
+    background-color: #94D6E7;
+}

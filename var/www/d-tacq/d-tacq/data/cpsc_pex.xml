@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<acqDataXML>
+   <acqInfo>
+       <host>cpsc_011 pex</host>
+       <uptime>01:34:46</uptime>
+       <date>Pex Apr 29 01:34:46 BST 2032</date>
+   </acqInfo>
+   <pageFormat>
+       <noCols>3</noCols>
+       <colItems>6</colItems>
+   </pageFormat>
+	<acqData id="1" n="1AUR1.CTRL" v="0x00000000"/>
+	<acqData id="2" n="2AUR1.STAT" v="0x0000a000"/>
+	<acqData id="3" n="3AUR1.STAT.LOS" v="14"/>
+	<acqData id="4" n="4AUR1.STAT.NPRS" v="63"/>
+	<acqData id="5" n="5AUR1.STAT.RXER" v="0"/>
+	<acqData id="6" n="6AUR1.STAT.RXLU" v="0"/>
+	<acqData id="7" n="7AUR1.STAT.RXUP" v="0"/>
+	<acqData id="8" n="8AUR1.STAT.TXER" v="0"/>
+	<acqData id="9" n="9AUR1.STAT.TXLU" v="1"/>
+	<acqData id="10" n="10AUR1.STAT.TXUP" v="1"/>
+	<acqData id="11" n="11AUR2.CTRL" v="0x00000000"/>
+	<acqData id="12" n="12AUR2.STAT" v="0x0000a000"/>
+	<acqData id="13" n="13AUR2.STAT.LOS" v="36"/>
+	<acqData id="14" n="14AUR2.STAT.NPRS" v="5"/>
+	<acqData id="15" n="15AUR2.STAT.15RS" v="4"/>
+</acqDataXML>

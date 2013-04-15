@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<acqDataXML>
+   <acqInfo>
+       <host>cpsc_011 sys</host>
+       <uptime>01:34:46</uptime>
+       <date>Sys Apr 29 01:34:46 BST 2032</date>
+   </acqInfo>
+   <acqData id="1" n="Capture Buffer Length:" v="938475520 0x37f00000 895M"/>
+   <acqData id="2" n="Linux Version:" v="Linux version 2.6.21-acqX00"/>
+</acqDataXML>
