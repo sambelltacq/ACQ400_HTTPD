@@ -12,9 +12,10 @@ EOF
 
 chmod a+rx /tmp/http_monitor
 /usr/local/bin/tempmon &
+/usr/local/bin/voltsmon &
 forsleep /tmp/http_monitor &
 (sleep 10;list-sites  | fs2xml -k ''  >/dev/shm/id.xml) &
 (head -n 1 /mnt/VERSION;/mnt/bin/check_version) | fs2xml -k '' >/dev/shm/fw.xml
-fs2xml -k '' </tmp/fpga_header >/dev/shm/fpga.xml
+fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
 
 
