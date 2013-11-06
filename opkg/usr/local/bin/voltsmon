@@ -1,0 +1,20 @@
+#!/bin/sh
+
+monitor() {
+cd /dev/hwmon
+
+for file in */*[Vv]*
+do
+	echo $file $(cat $file)
+done
+}
+
+
+while [ 1 ]
+do
+	monitor | fs2xml --kvp >/dev/shm/volts.xml
+	sleep 5
+done
+
+
+

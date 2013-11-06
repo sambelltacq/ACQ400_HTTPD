@@ -1,0 +1,20 @@
+# make space for web hacking
+mkdir -p /var/www/d-tacq
+mount --bind /usr/local/var/www/d-tacq /var/www/d-tacq
+mount --bind /dev/shm/ /var/www/d-tacq/data/
+cp /usr/local/var/www/index.html /var/www/
+(cd /var/www/d-tacq/; ln -s acq_main_page.html index.html)
+(cd /var/www/d-tacq/data/; ln -s top.xml Home.xml)
+cat - >/tmp/http_monitor <<EOF
+sed -e 's/^IPI/PI/' /proc/interrupts | fs2xml -o /dev/shm/interrupts.xml -k ''
+fs2xml -p '' 'top -n 1 -b | head -n 20' >/dev/shm/top.xml
+EOF
+
+chmod a+rx /tmp/http_monitor
+/usr/local/bin/tempmon &
+forsleep /tmp/http_monitor &
+(sleep 10;list-sites  | fs2xml -k ''  >/dev/shm/id.xml) &
+(head -n 1 /mnt/VERSION;/mnt/bin/check_version) | fs2xml -k '' >/dev/shm/fw.xml
+fs2xml -k '' </tmp/fpga_header >/dev/shm/fpga.xml
+
+
