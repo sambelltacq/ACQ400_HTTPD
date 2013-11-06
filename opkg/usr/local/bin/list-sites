@@ -1,12 +1,12 @@
 #!/bin/sh
 
-FMT="%10s %30s %15s %15s\\n"
+FMT="%4s %20s %15s %15s %15s\\n"
 
-printf "$FMT" SITE MANUFACTURER MODEL PART
+printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
 
 for site in /dev/sites/?
 do
 	source $site/details
-	printf "$FMT" $(basename $site) "$FRU_MAN" "$FRU_PROD_NAME" "$FRU_PART_NUM"
+	printf "$FMT" $(basename $site) "$FRU_MAN" "$FRU_PROD_NAME" "$FRU_PART_NUM" "$FRU_SERIAL"
 done
 
