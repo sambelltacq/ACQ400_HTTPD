@@ -2,6 +2,7 @@
 
 FMT="%4s %20s %15s %35s %15s\\n"
 
+echo MODULES
 printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
 
 for site in /dev/sites/?
