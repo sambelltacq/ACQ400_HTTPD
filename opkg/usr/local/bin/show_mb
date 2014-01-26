@@ -1,0 +1,16 @@
+#!/bin/sh
+source /tmp/u-boot_env
+model=${devicetree_image%*.dtb}
+
+echo CARRIER
+FMT="%4s %20s %15s %35s %15s\\n"
+printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
+printf "$FMT" 0 "D-TACQ Solutions" $model $model $dtsn
+echo ---------------------------------------------------------------------------------------------
+echo "build detail:" $dtenvid
+echo "eth0 macaddr:" $ethaddr
+if [ "eth1addr" != "" ]; then
+echo "eth1 macaddr:" $eth1addr
+fi
+echo ---------------------------------------------------------------------------------------------
+echo
