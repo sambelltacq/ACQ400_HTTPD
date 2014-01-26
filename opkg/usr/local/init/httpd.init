@@ -12,7 +12,7 @@ fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
 cat - >/tmp/http_monitor <<EOF
 #!/bin/sh
 
-(sleep 10;show_mb;list-sites  | fs2xml -k ''  >/dev/shm/id.xml) &
+(sleep 10;(show_mb;list-sites)  | fs2xml -k ''  >/dev/shm/id.xml) &
 
 while [ 1 ]; do
 sed -e 's/^IPI/PI/' /proc/interrupts | fs2xml -o /dev/shm/interrupts.xml -k ''
