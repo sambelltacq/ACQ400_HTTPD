@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$cat /proc/device-tree/chosen/model" = "acq1002" ]; then
+if [ "$(cat /proc/device-tree/chosen/model)" = "acq1002" ]; then
 	SITE3ID="CELF2";
 else
 	SITE3ID="SITE3";
@@ -20,7 +20,7 @@ do
 		0)
 			echo mainboard $TC;;
 		3)
-			echo $SITE3ID;;
+			echo $SITE3ID $TC;;
 		Z)
 			echo ZYNQ $TC;;
 		*)
