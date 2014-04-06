@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if [ "$cat /proc/device-tree/chosen/model" = "acq1002" ]; then
+	SITE3ID="CELF2";
+else
+	SITE3ID="SITE3";
+fi
+
 monitor() {
 cd /dev/hwmon
 
@@ -13,6 +19,8 @@ do
 		case $SITE in
 		0)
 			echo mainboard $TC;;
+		3)
+			echo $SITE3ID;;
 		Z)
 			echo ZYNQ $TC;;
 		*)
