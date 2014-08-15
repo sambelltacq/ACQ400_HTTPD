@@ -1,0 +1,17 @@
+#!/bin/sh
+
+FMT="%4s %20s %15s %35s %15s\\n"
+
+echo MODULES
+printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
+
+for site in /dev/sites/?
+do
+	FRU_MAN="unknown"
+	FRU_PROD_NAME="unknown"
+	FRU_PART_NUM="unknown"
+	FRU_SERIAL="unknown"
+	source $site/details
+	printf "$FMT" $(basename $site) "$FRU_MAN" "$FRU_PROD_NAME" "$FRU_PART_NUM" "$FRU_SERIAL"
+done
+
