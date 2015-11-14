@@ -13,7 +13,7 @@ cd /dev/hwmon
 
 for file in */*temp
 do
-	TX=$(cat $file)
+	TX=$(timeout cat $file)
 	if [ $TX -ne 0 ]
 	then
 		TC=$(echo $TX | awk '{ if ($1 > 200) $1/=1000; print $1 }')
@@ -31,7 +31,7 @@ do
 	fi
 done
 if [ -e /etc/acq400/S/Z:TEMP ]; then
-	/etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
+	timeout /etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
 fi	
 }
 
