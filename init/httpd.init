@@ -27,5 +27,9 @@ nice /bin/daemon /tmp/http_monitor
 /bin/daemon /usr/local/bin/tempmon
 /bin/daemon /usr/local/bin/voltsmon
 
+/usr/local/init/fix_home
+
+killall httpd
+httpd -h /var/www
 
 
