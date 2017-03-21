@@ -1,6 +1,10 @@
 #!/bin/sh
 source /tmp/u-boot_env
-model=${devicetree_image%*.dtb}
+modelf=${devicetree_image%*.dtb}
+model=$(basename $modelf)
+if [ "$modelf" = "$model" ]; then
+	model="$model-[old]"
+fi
 
 
 get_ip_addr() {
