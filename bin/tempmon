@@ -32,6 +32,9 @@ do
 done
 if [ -e /etc/acq400/S/Z:TEMP ]; then
 	timeout /etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
+fi
+if [ -e /etc/acq400/12/FPGA:TEMP ] then
+	timeout /etc/acq400/12/FPGA:TEMP | awk '{ print "MGT-DRAM "$2 }'
 fi	
 }
 
