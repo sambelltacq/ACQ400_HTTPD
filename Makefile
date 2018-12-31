@@ -11,7 +11,6 @@ package:
 	cp -av bin/* opkg/usr/local/bin
 	cp -av www/* opkg/usr/local/var/www
 	cp -av etc/* opkg/etc
-	cp -v ../UTILS/fs2xml opkg/usr/local/bin 
 	mkdir -p release
 	tar czf release/$(SEQ)-httpd-$(DC).tgz -C opkg .
 	@echo Created release/$(SEQ)-httpd-$(DC).tgz
