@@ -14,7 +14,7 @@ package:
 	mkdir -p release
 	tar czf release/$(SEQ)-httpd-$(DC).tgz -C opkg .
 	@echo Created release/$(SEQ)-httpd-$(DC).tgz
-	rm ../PACKAGES/$(SEQ)-httpd*
+	rm -f ../PACKAGES/$(SEQ)-httpd*
 	cp release/$(SEQ)-httpd-$(DC).tgz ../PACKAGES/
 
 
