@@ -1,4 +1,6 @@
 # make space for web hacking
+
+(cd /var/www; ln -s /mnt/ ; mkdir tmp; ln -s /tmp/u-boot_env tmp/u-boot_env.txt)
 mkdir -p /var/www/d-tacq
 mount --bind /usr/local/var/www/d-tacq /var/www/d-tacq
 mount --bind /dev/shm/ /var/www/d-tacq/data/
