@@ -8,7 +8,7 @@ cp /usr/local/var/www/index.html /var/www/
 (cd /var/www/d-tacq/; ln -s acq_main_page.html index.html)
 (cd /var/www/d-tacq/data/; ln -s top.xml Home.xml)
 
-(head -n 1 /mnt/VERSION;/mnt/bin/check_version) | fs2xml -k '' >/dev/shm/fw.xml
+(head -n 1 /mnt/VERSION;/mnt/bin/check_version|grep -v fpga.d) | fs2xml -k '' >/dev/shm/fw.xml
 fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
 
 cat - >/tmp/http_monitor <<EOF
