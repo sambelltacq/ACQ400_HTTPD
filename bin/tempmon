@@ -23,18 +23,18 @@ do
 			echo mainboard $TC;;
 		3)
 			echo $SITE3ID $TC;;
-		Z)
-			echo ZYNQ $TC;;
 		*)
 			echo SITE$SITE $TC;;
 		esac
 	fi
 done
 if [ -e /etc/acq400/S/Z:TEMP ]; then
-	timeout /etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
+	timeout 2 /etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
+else
+	echo ZYNQ $(cat /dev/hwmon/Z/in_temp0_*) | awk '{ print ($1+$2)*$3/1000 }'
 fi
 if [ -e /etc/acq400/13/FPGA:TEMP ]; then
-	timeout /etc/acq400/13/FPGA:TEMP | awk '{ print "MGT-DRAM "$2 }'
+	timeout 2 /etc/acq400/13/FPGA:TEMP | awk '{ print "MGT-DRAM "$2 }'
 fi	
 }
 
