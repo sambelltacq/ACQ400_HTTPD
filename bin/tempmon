@@ -45,7 +45,8 @@ monitor_loop()
 {
 while [ 1 ]
 do
-	monitor | fs2xml --kvp >/dev/shm/temp-new.xml
+	monitor | tee /dev/shm/temp.dat | fs2xml --kvp >/dev/shm/temp-new.xml
+	tr '\n ' ',=' </dev/shm/temp.dat | sed -e 's/,$/\n/' >/dev/shm/temp.txt
 	mv /dev/shm/temp-new.xml /dev/shm/temp.xml
 	sleep 5
 done
