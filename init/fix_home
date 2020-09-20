@@ -1,6 +1,15 @@
 #!/bin/sh
 # add calibration links to website home page
 
+mkdir -p /var/www/mnt/local/sysconfig
+sep='<br>'
+for cf in /mnt/local/rc.user /mnt/local/sysconfig/* /tmp/u-boot_env
+do
+	hf=$cf
+	[ $hf = ${hf%.*} ] && hf=$hf.txt
+	sed -i /var/www/d-tacq/acq_home_page.html \
+	-e"/LOCSET/i <a class=\"acqLink\" href=\"$hf\" onClick=\"return popup\(this, 'href_link'\)\">$cf</a>$sep"
+done
 
 mkdir -p /var/www/d-tacq/cal
 for calfile in /dev/sites/?/caldef.xml
@@ -13,12 +22,3 @@ do
 	-e"/CALINS/i  <a class=\"acqLink\" href=\"./cal/site.$site.xml\" onClick=\"return popup\(this, 'href_link'\)\">site$site.xml</a> | "
 done
 
-mkdir -p /var/www/mnt/local/sysconfig
-sep='<br>'
-for cf in /mnt/local/rc.user /mnt/local/sysconfig/* /tmp/u-boot_env
-do
-	hf=$cf
-	[ $hf = ${hf%.*} ] && hf=$hf.txt
-	sed -i /var/www/d-tacq/acq_home_page.html \
-	-e"/LOCSET/i <a class=\"acqLink\" href=\"$hf\" onClick=\"return popup\(this, 'href_link'\)\">$cf</a>$sep"
-done
