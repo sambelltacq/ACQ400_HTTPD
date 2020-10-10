@@ -11,11 +11,9 @@ do
 	-e"/LOCSET/i <a class=\"acqLink\" href=\"$hf\" onClick=\"return popup\(this, 'href_link'\)\">$cf</a>$sep"
 done
 
-<a class="acqLink" href="http://10.12.197.21:8080/" onClick="return popup(this, 'newone')">gpsmon</a><br>
-
 SERVER=$(/usr/local/CARE/get-ip-address)
 sed -i /var/www/d-tacq/acq_home_page.html \
- -e"/LOCSET/i <br><a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient_state_monitor</a><br>"
+ -e"/LOCSET/i <p class=\"acqDetail\">Status Terminals<br><a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient_state_monitor</a><br></p>"
 
 ttyd -p 8235 nc localhost 2235 2>&1 & 
 
