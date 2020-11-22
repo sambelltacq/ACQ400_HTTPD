@@ -13,16 +13,19 @@ done
 
 SERVER=$(/usr/local/CARE/get-ip-address)
 sed -i /var/www/d-tacq/acq_home_page.html \
- -e"/LOCSET/i <p class=\"acqDetail\">Status Terminals<br><a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient_state_monitor</a><br></p>"
+ -e"/LOCSET/i <p class=\"acqDetail\">Status Terminals<br><a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient state monitor</a>"
 
 ttyd -p 8235 nc localhost 2235 2>&1 & 
 
 if [ -e /dev/acq400.0.knobs/wr_tai_cur ]; then
-sed -i /var/www/d-tacq/acq_home_page.html \
- -e"/LOCSET/i <p class=\"acqDetail\">WR Console<br><a class=\"acqLink\" href=\"http://${SERVER}:8277/\" onClick=\"return popup\(this, 'WR Console'\)\">WR Console</a><br></p>"
+	sed -i /var/www/d-tacq/acq_home_page.html \
+ -e"/LOCSET/i | <a class=\"acqLink\" href=\"http://${SERVER}:8277/\" onClick=\"return popup\(this, 'WR Console'\)\">WR Console</a>"
  
- ttyd -p 8277 /usr/local/bin/tty_wr & 
+	ttyd -p 8277 /usr/local/bin/tty_wr & 
 fi
+
+sed -i /var/www/d-tacq/acq_home_page.html \
+ -e"/LOCSET/i</p>"
 
 mkdir -p /var/www/d-tacq/cal
 for calfile in /dev/sites/?/caldef.xml
