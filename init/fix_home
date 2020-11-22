@@ -17,6 +17,13 @@ sed -i /var/www/d-tacq/acq_home_page.html \
 
 ttyd -p 8235 nc localhost 2235 2>&1 & 
 
+if [ -e /dev/acq400.0.knobs/wr_tai_cur ]; then
+sed -i /var/www/d-tacq/acq_home_page.html \
+ -e"/LOCSET/i <p class=\"acqDetail\">WR Console<br><a class=\"acqLink\" href=\"http://${SERVER}:8277/\" onClick=\"return popup\(this, 'WR Console'\)\">WR Console</a><br></p>"
+ 
+ ttyd -p 8277 /usr/local/bin/tty_wr & 
+fi
+
 mkdir -p /var/www/d-tacq/cal
 for calfile in /dev/sites/?/caldef.xml
 do
