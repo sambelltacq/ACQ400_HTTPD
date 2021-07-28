@@ -4,7 +4,7 @@
 
 ln -s /dev/shm/temp.txt /etc/acq400/0/SYS_TEMP
 
-mkdir -p /var/www/d-tacq
+mkdir -p /var/www/d-tacq /var/log/nginx/
 mount --bind /usr/local/var/www/d-tacq /var/www/d-tacq
 mount --bind /dev/shm/ /var/www/d-tacq/data/
 cp /usr/local/var/www/index.html /var/www/
@@ -37,6 +37,7 @@ nice /bin/daemon /tmp/http_monitor
 /usr/local/init/fix_home
 
 killall httpd
-httpd -h /var/www
+#httpd -h /var/www
+nginx
 
 
