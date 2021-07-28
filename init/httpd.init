@@ -1,10 +1,13 @@
 # make space for web hacking
 
-(cd /var/www; ln -s /mnt/ ; mkdir tmp; ln -s /tmp/u-boot_env tmp/u-boot_env.txt)
+(cd /var/www; ln -s /mnt/ ;  ln -s /tmp/ )
 
 ln -s /dev/shm/temp.txt /etc/acq400/0/SYS_TEMP
 
+grep -q emlog /proc/modules; [ $? -ne 0 ] && /sbin/insmod /usr/local/lib/modules/emlog.ko
+
 mkdir -p /var/www/d-tacq /var/log/nginx/
+mkemlog /var/log/nginx/acq400.access.log
 mount --bind /usr/local/var/www/d-tacq /var/www/d-tacq
 mount --bind /dev/shm/ /var/www/d-tacq/data/
 cp /usr/local/var/www/index.html /var/www/
