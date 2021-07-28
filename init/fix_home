@@ -13,7 +13,7 @@ done
 
 SERVER=$(/usr/local/CARE/get-ip-address)
 sed -i /var/www/d-tacq/acq_home_page.html \
- -e"/LOCSET/i <p class=\"acqDetail\">Status Terminals<br><a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient state monitor</a>"
+ -e"/LOCSET/i <p class=\"acqDetail\">Status Terminals : <a class=\"acqLink\" href=\"http://${SERVER}:8235/\" onClick=\"return popup\(this, 'transient_state_monitor'\)\">transient state monitor</a>"
 
 ttyd -p 8235 nc localhost 2235 2>&1 & 
 
