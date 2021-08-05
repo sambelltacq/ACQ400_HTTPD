@@ -20,15 +20,20 @@ cp /usr/local/var/www/index.html /var/www/
 cat - >/tmp/http_monitor <<EOF
 #!/bin/sh
 
-(sleep 10;(show_mb;list-sites)  | fs2xml -k ''  >/dev/shm/id.xml) &
+(sleep 10;(show_mb;list-sites) >/tmp/sys_id) &
 
 export ROW_LIMIT=0
 
+phase=1
+
 while [ 1 ]; do
 sed -e 's/^IPI/PI/' /proc/interrupts | fs2xml -o /dev/shm/interrupts.xml -k ''
-fs2xml -p '' 'top -n 1 -b | head -n 20' >/dev/shm/top.xml
-fs2xml -k '' </tmp/esw_status >/dev/shm/fw.xml
-fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
+case $phase in
+1) fs2xml -k '' </tmp/esw_status >/dev/shm/fw.xml;            phase=2;;
+2) fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml;         phase=3;;
+3) fs2xml -k '' </tmp/sys_id >/dev/shm/id.xml;                phase=4;;
+*) fs2xml -p '' 'top -n 1 -b | head -n 20' >/dev/shm/top.xml; phase=1;;
+esac
 sleep 1
 done
 EOF
