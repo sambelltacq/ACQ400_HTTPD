@@ -14,8 +14,8 @@ cp /usr/local/var/www/index.html /var/www/
 (cd /var/www/d-tacq/; ln -s acq_main_page.html index.html)
 (cd /var/www/d-tacq/data/; ln -s temp.xml Home.xml)
 
-(head -n 1 /mnt/VERSION;/mnt/bin/check_version|grep -v fpga.d) | fs2xml -k '' >/dev/shm/fw.xml
-fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
+(head -n 1 /mnt/VERSION;/mnt/bin/check_version|grep -v fpga.d) >/tmp/esw_status
+
 
 cat - >/tmp/http_monitor <<EOF
 #!/bin/sh
@@ -27,6 +27,8 @@ export ROW_LIMIT=0
 while [ 1 ]; do
 sed -e 's/^IPI/PI/' /proc/interrupts | fs2xml -o /dev/shm/interrupts.xml -k ''
 fs2xml -p '' 'top -n 1 -b | head -n 20' >/dev/shm/top.xml
+fs2xml -k '' </tmp/esw_status >/dev/shm/fw.xml
+fs2xml -k '' </tmp/fpga_status >/dev/shm/fpga.xml
 sleep 1
 done
 EOF
