@@ -5,7 +5,7 @@ model=$(basename $modelf)
 if [ "$modelf" = "$model" ]; then
 	model="$model-[old]"
 fi
-
+mfr="${mfr:-D-TACQ Solutions}"
 
 get_ip_addr() {
 	ifconfig eth$1 | grep "inet addr" | tr : \   | awk '{ print $3 }'
@@ -14,7 +14,7 @@ get_ip_addr() {
 echo CARRIER
 FMT="%4s %20s %15s %35s %15s\\n"
 printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
-printf "$FMT" 0 "D-TACQ Solutions" $(basename $model) $model $dtsn
+printf "$FMT" 0 "${mfr}" $(basename $model) $model $dtsn
 echo ---------------------------------------------------------------------------------------------
 echo "build detail:" $dtenvid
 echo -n "eth0 macaddr:" $ethaddr; echo "    eth0  ipaddr:" $(get_ip_addr 0)
