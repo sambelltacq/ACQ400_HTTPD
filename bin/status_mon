@@ -16,6 +16,19 @@ $HN:0:SIG:CLK_MB:FREQ $HN:0:SIG:CLK_MB:SET"
 eval spawn camonitor [split $PVS]
 
 global LATEST
+global CHANGE
+
+proc store_update {} {
+	global LATEST
+
+	set fp [ open "|fs2xml --kvp -o /tmp/status.xml.new" w]	
+	foreach {key value} [array get LATEST] {
+		puts $fp "$key $value"
+	}
+	flush $fp
+	catch {close $fp}
+	exec mv /tmp/status.xml.new /tmp/status.xml	
+}
 
 for { set ii 0 } { 1 } {incr ii} {
 	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\-]*)" {
@@ -23,14 +36,16 @@ for { set ii 0 } { 1 } {incr ii} {
 		set key [regsub "$HN:" $expect_out(1,string) ""]
 		set val [string trim $expect_out(4,string)]
                 set LATEST($key) $val
+		if {[string first "UPTIME" $key] != -1} {
+			set CHANGE 1
+		}
 	}
 
         if {$ii < 10} {
 		continue
 	}
-        puts "Update"
-	foreach {key value} [array get LATEST] {
-            puts "$key => $value"
+	if {$CHANGE != 0} {
+		store_update
+		set CHANGE 0
 	}
-	puts "Update 99"
 }
