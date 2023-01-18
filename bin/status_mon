@@ -1,0 +1,34 @@
+#!/usr/bin/env expect
+
+
+log_user 0
+
+set HN [exec hostname]
+
+set PVS "$HN:SYS:UPTIME $HN:SYS:VERSION:SW $HN:SYS:VERSION:FPGA\
+$HN:USER $HN:TEST_DESCR $HN:SYS:0:TEMP\
+$HN:1:SHOT $HN:MODE:TRANS_ACT:STATE\
+$HN:0:SIG:CLK_S1:FREQ $HN:0:SIG:TRG_S1:FREQ\
+$HN:0:SIG:CLK_MB:FREQ $HN:0:SIG:CLK_MB:SET"
+
+#set PVS "$HN:SYS:UPTIME $HN:SYS:VERSION:SW $HN:SYS:VERSION:FPGA"
+
+eval spawn camonitor [split $PVS]
+
+global LATEST
+
+for { set ii 0 } { 1 } {incr ii} {
+	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\-]*)" {
+#		puts "Hello $expect_out(1,string) v $expect_out(4,string)"
+                set LATEST($expect_out(1,string)) [string trim $expect_out(4,string)]
+	}
+
+        if {$ii < 10} {
+		continue
+	}
+        puts "Update"
+	foreach {key value} [array get LATEST] {
+            puts "$key => $value"
+	}
+	puts "Update 99"
+}
