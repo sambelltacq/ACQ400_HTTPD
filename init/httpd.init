@@ -43,6 +43,7 @@ nice /bin/daemon /tmp/http_monitor
 
 /bin/daemon /usr/local/bin/tempmon
 /bin/daemon /usr/local/bin/voltsmon
+/bin/daemon /usr/local/bin/statusmon
 
 /usr/local/init/fix_home
 
