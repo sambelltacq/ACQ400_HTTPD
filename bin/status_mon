@@ -9,7 +9,8 @@ set PVS "$HN:SYS:UPTIME $HN:SYS:VERSION:SW $HN:SYS:VERSION:FPGA\
 $HN:USER $HN:TEST_DESCR $HN:SYS:0:TEMP\
 $HN:1:SHOT $HN:MODE:TRANS_ACT:STATE\
 $HN:0:SIG:CLK_S1:FREQ $HN:0:SIG:TRG_S1:FREQ\
-$HN:0:SIG:CLK_MB:FREQ $HN:0:SIG:CLK_MB:SET"
+$HN:0:SIG:CLK_MB:FREQ $HN:0:SIG:CLK_MB:SET\
+$HN:MODE:CONTINUOUS:STATE $HN:MODE:TRANS_ACT:STATE"
 
 #set PVS "$HN:SYS:UPTIME $HN:SYS:VERSION:SW $HN:SYS:VERSION:FPGA"
 
@@ -21,8 +22,8 @@ global CHANGE
 proc store_update {} {
 	global LATEST
 
-	set fp [ open "|fs2xml --kvp -o /dev/shm/status.xml.new" w]	
-	foreach {key value} [array get LATEST] {
+	set fp [open "|fs2xml --kvp -o /dev/shm/status.xml.new" w]
+	foreach {key value} [lsort -stride 2 -index 0  -decreasing [array get LATEST] ] {
 		puts $fp "$key $value"
 	}
 	flush $fp
@@ -31,7 +32,7 @@ proc store_update {} {
 }
 
 for { set ii 0 } { 1 } {incr ii} {
-	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\-]*)" {
+	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\+\.\-]*)" {
 #		puts "Hello $expect_out(1,string) v $expect_out(4,string)"
 		set key [regsub "$HN:" $expect_out(1,string) ""]
 		set val [string trim $expect_out(4,string)]
@@ -41,7 +42,7 @@ for { set ii 0 } { 1 } {incr ii} {
 		}
 	}
 
-        if {$ii < 10} {
+        if {$ii <= 10} {		
 		continue
 	}
 	if {$CHANGE != 0} {
