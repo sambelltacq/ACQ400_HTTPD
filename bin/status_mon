@@ -20,7 +20,9 @@ global LATEST
 for { set ii 0 } { 1 } {incr ii} {
 	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\-]*)" {
 #		puts "Hello $expect_out(1,string) v $expect_out(4,string)"
-                set LATEST($expect_out(1,string)) [string trim $expect_out(4,string)]
+		set key [regsub "$HN:" $expect_out(1,string) ""]
+		set val [string trim $expect_out(4,string)]
+                set LATEST($key) $val
 	}
 
         if {$ii < 10} {
