@@ -21,13 +21,13 @@ global CHANGE
 proc store_update {} {
 	global LATEST
 
-	set fp [ open "|fs2xml --kvp -o /tmp/status.xml.new" w]	
+	set fp [ open "|fs2xml --kvp -o /dev/shm/status.xml.new" w]	
 	foreach {key value} [array get LATEST] {
 		puts $fp "$key $value"
 	}
 	flush $fp
 	catch {close $fp}
-	exec mv /tmp/status.xml.new /tmp/status.xml	
+	exec mv /dev/shm/status.xml.new /dev/shm/status.xml
 }
 
 for { set ii 0 } { 1 } {incr ii} {
