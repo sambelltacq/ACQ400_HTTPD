@@ -1,5 +1,8 @@
 #!/usr/bin/env expect
-
+# statusmon : system-resident version of multimon polling.
+# uses camonitor for low-overhead event driven action.
+# updates /dev/shm/status.xml at 1Hz, automation for Status web tab
+# and possible future epics-less multimon
 
 log_user 0
 
