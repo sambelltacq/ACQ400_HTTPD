@@ -1,5 +1,7 @@
 # make space for web hacking
 
+DAEMON=/usr/bin/daemon
+
 (cd /var/www; ln -s /mnt/ ;  ln -s /tmp/ )
 
 ln -s /dev/shm/temp.txt /etc/acq400/0/SYS_TEMP
@@ -39,11 +41,11 @@ done
 EOF
 
 chmod a+rx /tmp/http_monitor
-nice /bin/daemon /tmp/http_monitor
+nice $DAEMON /tmp/http_monitor
 
-/bin/daemon /usr/local/bin/tempmon
-/bin/daemon /usr/local/bin/voltsmon
-/bin/daemon /usr/local/bin/statusmon_wrapper
+$DAEMON /usr/local/bin/tempmon
+$DAEMON /usr/local/bin/voltsmon
+$DAEMON /usr/local/bin/statusmon_wrapper
 
 /usr/local/init/fix_home
 
