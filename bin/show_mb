@@ -11,10 +11,36 @@ get_ip_addr() {
 	ifconfig eth$1 | grep "inet addr" | tr : \   | awk '{ print $3 }'
 }
 
+part=$model
+
+if [ "$model" = "z7io" ]; then
+	if [ -e /dev/sites/AMC/details ]; then
+		source /dev/sites/AMC/details
+		mfr=$FRU_MAN
+		mfr="DESY/D-TACQ Solution"
+		part=$FRU_PART_NUM
+		[ -z $dtsn ] && dtsn="CM403$FRU_SERIAL"
+		ethaddr=$(ifconfig eth0 | grep HWaddr | awk '{ print $5 }')
+	fi
+else
+	part=$model
+fi
 echo CARRIER
 FMT="%4s %20s %15s %35s %15s\\n"
 printf "$FMT" SITE MANUFACTURER MODEL PART SERIAL
-printf "$FMT" 0 "${mfr}" $(basename $model) $model $dtsn
+printf "$FMT" 0 "${mfr}" $model $part $dtsn
+
+if [ "$model" = "z7io" ]; then
+	if [ -e /dev/sites/RTM/details ]; then
+		source /dev/sites/RTM/details
+		mfr=$FRU_MAN
+		part=$FRU_PART_NUM
+		model=ACQ400-RTM-2
+		dtsn=$FRU_SERIAL
+	fi
+	printf "$FMT" RTM "${mfr}" $model $part $dtsn
+fi
+
 echo ---------------------------------------------------------------------------------------------
 echo "build detail:" $dtenvid
 echo -n "eth0 macaddr:" $ethaddr; echo "    eth0  ipaddr:" $(get_ip_addr 0)
