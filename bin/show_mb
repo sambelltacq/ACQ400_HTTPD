@@ -37,8 +37,8 @@ if [ "$model" = "z7io" ]; then
 		part=$FRU_PART_NUM
 		model=ACQ400-RTM-2
 		dtsn=$FRU_SERIAL
+		printf "$FMT" RTM "${mfr}" $model $part $dtsn
 	fi
-	printf "$FMT" RTM "${mfr}" $model $part $dtsn
 fi
 
 echo ---------------------------------------------------------------------------------------------
