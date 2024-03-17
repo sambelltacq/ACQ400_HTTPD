@@ -1,0 +1,6 @@
+#!/bin/sh
+while [ 1 ]; do
+        cat /sys/kernel/debug/clk/clk_dump > /var/www/d-tacq/clk_dump.json
+        sleep 5;
+done
+
