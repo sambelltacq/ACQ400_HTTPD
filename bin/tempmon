@@ -11,23 +11,35 @@ fi
 monitor() {
 cd /dev/hwmon
 
-for file in */*temp
-do
-	TX=$(timeout 2 cat $file)
-	if [ $TX -ne 0 ]
-	then
-		TC=$(echo $TX | awk '{ if ($1 > 200) $1/=1000; print $1 }')
-		SITE=$(dirname $file)
-		case $SITE in
-		0)
-			echo mainboard $TC;;
-		3)
-			echo $SITE3ID $TC;;
-		*)
-			echo SITE$SITE $TC;;
-		esac
-	fi
-done
+if [ -d ./LNAMES ]; then
+	cd ./LNAMES
+	for file in */*temp; do
+		TX=$(timeout 2 cat $file)
+		if [ $TX -ne 0 ]; then
+			TC=$(echo $TX | awk '{ if ($1 > 200) $1/=1000; print $1 }')
+			LABEL=$(dirname $file)
+			echo $LABEL $TC
+		fi
+	done
+else
+	for file in */*temp
+	do
+		TX=$(timeout 2 cat $file)
+		if [ $TX -ne 0 ]
+		then
+			TC=$(echo $TX | awk '{ if ($1 > 200) $1/=1000; print $1 }')
+			SITE=$(dirname $file)
+			case $SITE in
+			0)
+				echo mainboard $TC;;
+			3)
+				echo $SITE3ID $TC;;
+			*)
+				echo SITE$SITE $TC;;
+			esac
+		fi
+	done
+fi
 if [ -e /etc/acq400/S/Z:TEMP ]; then
 	timeout 2 /etc/acq400/S/Z:TEMP | awk '{ print "ZYNQ "$2 }'
 else
