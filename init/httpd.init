@@ -2,6 +2,17 @@
 
 DAEMON=/usr/bin/daemon
 
+
+if [ -e /mnt/local/nginx/etc ]; then
+	for file in /mnt/local/nginx/etc/*; do
+		if [ -e $file ]; then
+			cp $file /etc/nginx
+			echo local override cp $file /etc/nginx
+		fi
+	done
+fi
+
+
 (cd /var/www; ln -s /mnt/ ;  ln -s /tmp/ )
 
 ln -s /dev/shm/temp.txt /etc/acq400/0/SYS_TEMP
