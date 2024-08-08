@@ -62,6 +62,14 @@ $DAEMON /usr/local/bin/statusmon_wrapper
 
 killall httpd
 #httpd -h /var/www
-nginx
+
+#if certificate exists run ssl
+if [ -e /mnt/cert/certificate.crt ]; then
+	echo "starting nginx ssl"
+	nginx -c /etc/nginx/nginx_ssl.conf
+else
+	echo "starting nginx"
+	nginx -c /etc/nginx/nginx.conf
+fi
 
 
