@@ -68,10 +68,19 @@ killall httpd
 source /mnt/local/sysconfig/acq400.sh
 
 #set banner link target
-sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js 
+sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js
+
+#find key and cert
+cert_file="/mnt/local/sysconfig/$(hostname).crt"
+key_file="/mnt/local/sysconfig/$(hostname).key"
+
+#link key and cert
+if [ -e $cert_file ]; then
+	ln -s $cert_file /etc/nginx/certificate.crt
+	ln -s $key_file /etc/nginx/private.key
+fi
 
 #start nginx with correct conf
-cert_file="/mnt/local/sysconfig/ssl/certificate.crt"
 if [ "$SSL_MODE" = "FORCE" ] && [ -e $cert_file ]; then
 	echo "starting nginx ssl forced"
 	nginx -c /etc/nginx/nginx_ssl_forced.conf
