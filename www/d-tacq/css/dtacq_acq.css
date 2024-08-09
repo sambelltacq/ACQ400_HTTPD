@@ -160,3 +160,10 @@ td.acqFootS {
 .errMessage {
    color: red;
 }
+
+.sslBanner{
+   padding: 10px;
+   border: 1px solid black;
+   margin: 6px;
+   background-color: #dddddd;
+}
