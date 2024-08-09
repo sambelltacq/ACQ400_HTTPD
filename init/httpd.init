@@ -68,7 +68,7 @@ killall httpd
 source /mnt/local/sysconfig/acq400.sh
 
 #set banner link target
-sed -i "s|LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js 
+sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js 
 
 #start nginx with correct conf
 cert_file="/mnt/local/sysconfig/ssl/certificate.crt"
