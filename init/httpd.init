@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # make space for web hacking
 
 DAEMON=/usr/bin/daemon
@@ -62,6 +64,31 @@ $DAEMON /usr/local/bin/statusmon_wrapper
 
 killall httpd
 #httpd -h /var/www
-nginx
 
+source /mnt/local/sysconfig/acq400.sh
+
+#set banner link target
+sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js
+
+#find key and cert
+cert_file="/mnt/local/sysconfig/$(hostname).crt"
+key_file="/mnt/local/sysconfig/$(hostname).key"
+
+#link key and cert
+if [ -e $cert_file ]; then
+	ln -s $cert_file /etc/nginx/certificate.crt
+	ln -s $key_file /etc/nginx/private.key
+fi
+
+#start nginx with correct conf
+if [ "$SSL_MODE" = "FORCE" ] && [ -e $cert_file ]; then
+	echo "starting nginx ssl forced"
+	nginx -c /etc/nginx/nginx_ssl_forced.conf
+elif [ "$SSL_MODE" = "ON" ] && [ -e $cert_file ]; then
+	echo "starting nginx ssl"
+	nginx -c /etc/nginx/nginx_ssl.conf
+else
+	echo "starting nginx"
+	nginx -c /etc/nginx/nginx.conf
+fi
 
