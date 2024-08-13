@@ -67,6 +67,7 @@ killall httpd
 
 source /mnt/local/sysconfig/acq400.sh
 
+SSL_CA_POPUP_LINK=${SSL_CA_POPUP_LINK:-https://www.d-tacq.com/ssl/dtacq_ca.crt}
 #set banner link target
 sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js
 
