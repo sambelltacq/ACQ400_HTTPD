@@ -62,8 +62,7 @@ $DAEMON /usr/local/bin/statusmon_wrapper
 
 /usr/local/init/fix_home
 
-killall httpd
-#httpd -h /var/www
+killall nginx
 
 env_file="/mnt/local/sysconfig/acq400.sh"
 [ -f "$env_file" ] && source "$env_file"
