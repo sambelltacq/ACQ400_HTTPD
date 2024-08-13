@@ -70,21 +70,33 @@ source /mnt/local/sysconfig/acq400.sh
 #set banner link target
 sed -i "s|CA_LINK_PLACEHOLDER|$SSL_CA_POPUP_LINK|" /var/www/d-tacq/scripts/scripts.js
 
-#find key and cert
-cert_file="/mnt/local/sysconfig/$(hostname).crt"
-key_file="/mnt/local/sysconfig/$(hostname).key"
+#activate key and cert from nv location
+non_volatile=/mnt/local/sysconfig/ssl
+nv_cert=${non_volatile}/$(hostname).crt
+nv_key=${non_volatile}/$(hostname).key
+
+active_cert=/etc/nginx/certificate.crt
+active_key=/etc/nginx/private.key
 
 #link key and cert
-if [ -e $cert_file ]; then
-	ln -s $cert_file /etc/nginx/certificate.crt
-	ln -s $key_file /etc/nginx/private.key
+if [ -e $nv_cert ] && [ -e $nv_key ]; then
+	ln -s $nv_cert $active_cert
+	ln -s $nv_key  $active_key
+else
+	case $SSL_MODE in
+	ON|FORCE)
+		ls -l $non_volatile
+		echo "ERROR SSL_MODE $SSL_MODE selected, but we do not have key and cert";;
+	*)
+		;;
+	esac
 fi
 
 #start nginx with correct conf
-if [ "$SSL_MODE" = "FORCE" ] && [ -e $cert_file ]; then
+if [ "$SSL_MODE" = "FORCE" ] && [ -e $active_key ]; then
 	echo "starting nginx ssl forced"
 	nginx -c /etc/nginx/nginx_ssl_forced.conf
-elif [ "$SSL_MODE" = "ON" ] && [ -e $cert_file ]; then
+elif [ "$SSL_MODE" = "ON" ] && [ -e $active_key ]; then
 	echo "starting nginx ssl"
 	nginx -c /etc/nginx/nginx_ssl.conf
 else
