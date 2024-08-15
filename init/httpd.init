@@ -62,10 +62,10 @@ $DAEMON /usr/local/bin/statusmon_wrapper
 
 /usr/local/init/fix_home
 
-killall httpd
-#httpd -h /var/www
+killall nginx
 
-source /mnt/local/sysconfig/acq400.sh
+env_file="/mnt/local/sysconfig/acq400.sh"
+[ -f "$env_file" ] && source "$env_file"
 
 SSL_CA_POPUP_LINK=${SSL_CA_POPUP_LINK:-https://www.d-tacq.com/acq400_ssl.shtml}
 #set banner link target
