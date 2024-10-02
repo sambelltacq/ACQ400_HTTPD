@@ -19,9 +19,7 @@ ttyd -p 8235 nc localhost 2235 2>&1 &
 
 if [ -e /dev/acq400.0.knobs/wr_tai_cur ]; then
 	sed -i /var/www/d-tacq/acq_home_page.html \
- -e"/LOCSET/i | <a class=\"acqLink\" href=\"http://${SERVER}:8277/\" onClick=\"return popup\(this, 'WR Console'\)\">WR Console</a>"
- 
-	ttyd -p 8277 /usr/local/bin/tty_wr & 
+ -e"/LOCSET/i | <a class=\"acqLink\" href=\"/tty_wr\" onClick=\"return popup\(this, 'WR Console'\)\">WR Console</a>"
 fi
 
 sed -i /var/www/d-tacq/acq_home_page.html \
