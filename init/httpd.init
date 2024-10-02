@@ -102,18 +102,16 @@ fi
 
 #start nginx with correct conf
 if [ "$SSL_MODE" = "FORCE" ] && [ -e $active_key ]; then
+	export SSL_MODE
+	echo "SSL_MODE = FORCE"
 	if [ "$WEB_AUTH" = "ON" ] && [ -e $active_auth ]; then
-		echo "starting nginx + ssl + forced + auth"
-		nginx -c /etc/nginx/nginx_ssl_forced_auth.conf
-	else
-		echo "starting nginx + ssl + forced"
-		nginx -c /etc/nginx/nginx_ssl_forced.conf
+		export WEB_AUTH
+		echo "WEB_AUTH = ON"
 	fi
 elif [ "$SSL_MODE" = "ON" ] && [ -e $active_key ]; then
-	echo "starting nginx + ssl"
-	nginx -c /etc/nginx/nginx_ssl.conf
-else
-	echo "starting nginx"
-	nginx -c /etc/nginx/nginx.conf
+	export SSL_MODE
+	echo "SSL_MODE = ON"
 fi
 
+/usr/local/init/generate_conf.py
+nginx -c /etc/nginx/nginx.conf

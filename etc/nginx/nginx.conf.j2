@@ -1,0 +1,92 @@
+# nginx.conf by pgm generated on {{ timestamp }}
+
+
+user       www-data www-data;  ## Default: nobody
+worker_processes  5;  ## Default: 1
+error_log  /var/log/nginx/error.log;
+pid        /var/log/nginx/nginx.pid;
+worker_rlimit_nofile 8192;
+
+events {
+  worker_connections  4096;  ## Default: 1024
+}
+
+http {
+  include    /etc/nginx/mime.types;
+  include    /etc/nginx/fastcgi.conf;
+  index    index.html index.htm index.php;
+  default_type text/plain;
+  add_header X-Frame-Options "SAMEORIGIN";
+  log_format   main '$remote_addr - $remote_user [$time_local]  $status '
+    '"$request" $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for"';
+  sendfile     on;
+  tcp_nopush   on;
+  server_names_hash_bucket_size 128; # this seems to be required for some vhosts
+
+  server {
+    listen 80;
+    server_name  _;
+    access_log  /var/log/nginx/acq400.80.access.log  main;
+    error_log  /var/log/nginx/acq400.80.error.log  error;
+
+    location / {
+      root    /var/www/;
+
+      {% if SSL_MODE=='FORCE' %}
+
+      #SSL_MODE=FORCE
+      add_header Set-Cookie "ssl_available=true; Path=/;";
+      return 302 https://$host$request_uri; #Redirect traffic on port 80 to port 443
+
+      {% elif SSL_MODE=='ON' %}
+
+      #SSL_MODE==ON
+      add_header Set-Cookie "ssl_available=true; Path=/;";
+      try_files $uri $uri/ =404;
+
+      {% else %}
+
+      #SSL_MODE==OFF
+      add_header Set-Cookie "ssl_available=false; Path=/;";
+      try_files $uri $uri/ =404;
+
+      {% endif %}
+    } 
+  }
+
+  {% if SSL_MODE=='FORCE' or SSL_MODE=='ON' %}
+  #SSL_MODE=FORCE|ON
+  server {
+    listen 443 ssl;
+    server_name  _;
+    access_log  /var/log/nginx/acq400.443.access.log  main;
+    error_log  /var/log/nginx/acq400.443.error.log  error;
+
+    ssl_certificate /etc/nginx/certificate.crt;
+    ssl_certificate_key /etc/nginx/private.key;
+
+    location / {
+      root    /var/www/;
+      try_files $uri $uri/ =404;
+    }
+
+    {% if WEB_AUTH=='ON' %}
+    #WEB_AUTH=ON
+    auth_basic "Restricted Access!";
+    auth_basic_user_file /etc/nginx/auth;
+
+    location /d-tacq/data {
+        root /var/www/;
+        auth_basic off;
+    }
+    location /tmp {
+        root /var/www/;
+        auth_basic off;
+    }
+    {% endif %}
+  }
+  {% endif %}
+}
+
+
