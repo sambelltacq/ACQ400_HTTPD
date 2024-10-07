@@ -115,7 +115,7 @@ fi
 
 #start WR web console
 if [ -e /dev/acq400.0.knobs/wr_tai_cur ]; then
-	ttyd -p 8277 /usr/local/bin/tty_wr & 
+	ttyd -p 8277 -i lo /usr/local/bin/tty_wr &
 	export WR_ENABLED='YES'
 fi
 
