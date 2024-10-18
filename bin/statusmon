@@ -34,7 +34,7 @@ proc store_update {} {
 	exec mv /dev/shm/status.xml.new /dev/shm/status.xml
 }
 
-for { set ii 0 } { 1 } {incr ii} {
+for { set ii 0 } { $ii < 100 } {incr ii} {
 	expect -re "($HN\[:A-Z_0-9]*) *(\[0-9\-]*) *(\[0-9:\.-]*) (\[A-Za-z_0-9\+\.\-]*)" {
 #		puts "Hello $expect_out(1,string) v $expect_out(4,string)"
 		set key [regsub "$HN:" $expect_out(1,string) ""]
