@@ -19,6 +19,10 @@
    <!-- REM scripts -->
    <script type="text/javascript" src="scripts/acq_header_tabs.js"></script>
 
+   <!-- SAM scripts -->
+   <script language="javascript" type="text/javascript" src="/d-tacq/scripts/plugins/jszip.js"></script>
+   <script language="javascript" type="text/javascript" src="/d-tacq/scripts/scripts.js"></script>
+
 </head>
 
 <body>
@@ -49,10 +53,20 @@
             <td class="acqFootC">
                <input name="refresh" type="checkbox" value="refresh" checked>Refresh?
             </td>
+            <td class="acqFoot">
+               <span id="diagnostics-button" title="Download UUT diagnostics">
+                  <svg viewBox="0 -960 960 960" fill="#302ee5" preserveAspectRatio="xMidYMid meet" width="1em" height="1em">
+                     <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h200v80H160v480h640v-480H600v-80h200q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-184L280-544l56-56 104 104v-304h80v304l104-104 56 56-200 200Z"/>
+                  </svg>
+               </span>
+            </td>
             <td class="acqFootR"><div id="ajaxInProgress"></div></td>
          </tr>
       </table>
    </div>
 </div>
+<script>
+   add_ssl_banner('contents');
+</script>
 </body>
 </html>

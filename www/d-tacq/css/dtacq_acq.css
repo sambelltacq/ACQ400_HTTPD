@@ -167,3 +167,28 @@ td.acqFootS {
    margin: 6px;
    background-color: #dddddd;
 }
+
+td.acqFoot {
+   border: 1px solid #dddddd;
+   position: relative;
+   padding: 0;
+   width: auto;
+   white-space: nowrap;
+   box-sizing: border-box;
+}
+#diagnostics-button {
+   flex: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   cursor: pointer;
+}
+#diagnostics-button svg {
+   height: 24px;
+   width: auto;
+   display: block;
+}
+#diagnostics-button:hover {
+   background-color: rgba(0, 0, 0, 0.1);
+}
